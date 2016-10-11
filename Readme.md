@@ -29,8 +29,7 @@ $ bundle install
 
 
 ##Dockerコンテナを追加
-下記を実行。
-[詳しい説明](https://github.com/elgalu/docker-selenium/blob/master/docs/docker-compose.md)
+[elgalu/docker-selenium](https://github.com/elgalu/docker-selenium)を利用。
 
 ```
 $ docker pull elgalu/selenium #upgrades to latest if a newer version is available
@@ -52,3 +51,14 @@ $ brew install Caskroom/cask/real-vnc
 ```
 localhost:5900 で接続可能。  
 実行したら、動きが見える！
+
+##parallelもどき実行？
+```
+$ export SELENIUM_HUB_PORT=4444 NODES=3 VNC_FROM_PORT=40650 VNC_TO_PORT=40700 VIDEO=false
+$ docker-compose -p grid up -d
+$ docker-compose -p grid scale firefox=${NODES}
+$ ruby testParalell.rb
+```
+成功すれば、ルートフォルダに３つのキャプチャーが出来ているはず。
+
+本当に正しいかは調査中。
